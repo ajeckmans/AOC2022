@@ -1,5 +1,4 @@
 ﻿open System
-open System.Net
 open System.Reflection
 open AOC2022.Runner
 open AOC2022.Runner.AOC
@@ -80,8 +79,10 @@ let main args =
 
             if submit then
                 let! response = (AOC.submitInput day puzzle result session)
-                let! message = response.content.ReadAsStringAsync()
-                return box $"answer {result} \n submitted to AOC.\n Response was {message}"
+return
+    match response with
+    | Result.Ok s -> box $"Correct answer {result} \n submitted to AOC.\n Response was {s}"
+    | Result.Error s -> box $"Incorrect answer {result} \n submitted to AOC.\n Response was {s}"
             else
                 return result
         })

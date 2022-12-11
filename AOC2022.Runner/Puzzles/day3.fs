@@ -54,7 +54,7 @@ let runPuzzle_2_2 (input: string) =
             | "B" -> 2
             | "C" -> 3
             | _ -> failwith "invalid hand"
-        
+
         match result with
         | "X" -> (if opponentScore = 1 then 3 else opponentScore - 1)
         | "Y" -> opponentScore + 3

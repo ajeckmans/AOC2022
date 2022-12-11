@@ -6,16 +6,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="AOC.fs" />
-        <Compile Include="Puzzles\day1.fs" />
-        <Compile Include="Puzzles\day2.fs" />
+        <Compile Include="AOC.fs"/>
+        <Compile Include="Puzzles\day1.fs"/>
+        <Compile Include="Puzzles\day2.fs"/>
         <Compile Include="Puzzles\day3.fs"/>
-        <Compile Include="Program.fs" />
+        <Compile Include="Program.fs"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Argu" Version="6.1.1" />
-        <PackageReference Include="FsHttp" Version="10.0.0" />
+        <PackageReference Include="Argu" Version="6.1.1"/>
+        <PackageReference Include="FsHttp" Version="10.0.0"/>
     </ItemGroup>
 
 </Project>

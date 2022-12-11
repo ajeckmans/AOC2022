@@ -23,8 +23,8 @@ let runPuzzle_3_2 (input: string) =
     |> Seq.map (fun x ->
         Seq.allPairs x[0] x[1]
         |> Seq.allPairs x[2]
-        |> Seq.find (fun (a, (b, c)) -> a = b && b = c) |> fst
-    )
+        |> Seq.find (fun (a, (b, c)) -> a = b && b = c)
+        |> fst)
 
     |> Seq.sumBy (fun x ->
         if Char.IsUpper(x) then
