@@ -18,6 +18,8 @@ let sumsByIndex (input: string) =
         (false, [])
     |> snd
     |> Seq.mapi (fun i a -> i, a)
+
 let runPuzzle_1_1 (input: string) = sumsByIndex input |> Seq.maxBy snd
+
 let runPuzzle_1_2 (input: string) =
     sumsByIndex input |> Seq.sortByDescending snd |> Seq.take 3 |> Seq.sumBy snd
