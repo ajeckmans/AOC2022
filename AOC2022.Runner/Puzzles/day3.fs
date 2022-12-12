@@ -1,64 +1,33 @@
-module AOC2022.Runner.Puzzles.Day2
+module AOC2022.Runner.Puzzles.Day3
 
 open System
+open Microsoft.FSharp.Collections
+
+let runPuzzle_3_1 (input: string) =
+    input.Split("\n")
+    |> Seq.map (fun x ->
+        let first = x[.. x.Length / 2 - 1]
+        let second = x[x.Length / 2 ..]
+        Seq.allPairs first second |> Seq.find (fun (a, b) -> a = b) |> fst)
+    |> Seq.map (fun x ->
+        if Char.IsUpper(x) then
+            x, (x |> int64) - 38L
+        else
+            x, (x |> int64) - 96L)
+    |> Seq.sumBy snd
 
 
-type Outcome =
-    | Win
-    | Loss
-    | Draw
+let runPuzzle_3_2 (input: string) =
+    input.Split("\n")
+    |> Seq.chunkBySize 3
+    |> Seq.map (fun x ->
+        Seq.allPairs x[0] x[1]
+        |> Seq.allPairs x[2]
+        |> Seq.find (fun (a, (b, c)) -> a = b && b = c)
+        |> fst)
 
-let runRoundLine scoring (line: string) =
-    if String.IsNullOrEmpty line then
-        0
-    else
-        let x = line.Split(" ")
-        scoring x[0] x[1]
-
-let runPuzzle_2_1 (input: string) =
-    let getScore x y =
-        match y with
-        | "X" ->
-            match x with
-            | "A" -> Draw, 1
-            | "B" -> Loss, 1
-            | "C" -> Win, 1
-            | _ -> failwith "invalid hand"
-        | "Y" ->
-            match x with
-            | "A" -> Win, 2
-            | "B" -> Draw, 2
-            | "C" -> Loss, 2
-            | _ -> failwith "invalid hand"
-        | "Z" ->
-            match x with
-            | "A" -> Loss, 3
-            | "B" -> Win, 3
-            | "C" -> Draw, 3
-            | _ -> failwith "invalid hand"
-        | _ -> failwith "invalid hand"
-
-    let runRound opponent self =
-        match getScore opponent self with
-        | Loss, s -> s
-        | Win, s -> s + 6
-        | Draw, s -> s + 3
-
-    input.Split("\n") |> Seq.map (runRoundLine runRound) |> Seq.sum
-
-let runPuzzle_2_2 (input: string) =
-    let getScore opponent result =
-        let opponentScore =
-            match opponent with
-            | "A" -> 1
-            | "B" -> 2
-            | "C" -> 3
-            | _ -> failwith "invalid hand"
-
-        match result with
-        | "X" -> (if opponentScore = 1 then 3 else opponentScore - 1)
-        | "Y" -> opponentScore + 3
-        | "Z" -> (if opponentScore = 3 then 1 else opponentScore + 1) + 6
-        | _ -> failwith "invalid hand"
-
-    input.Split("\n") |> Seq.map (runRoundLine getScore) |> Seq.sum
+    |> Seq.sumBy (fun x ->
+        if Char.IsUpper(x) then
+            (x |> int64) - 38L
+        else
+            (x |> int64) - 96L)
